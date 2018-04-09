@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>High-Low Binary Options Trading</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' >
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script> -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+  <!-- Include Date Range Picker -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+  <script src="./app.js"></script>
+ <!-- <img width="130px" height="70px"src="{% static "series/images/logo.png"%}" style="position:relative;top:-10px">-->
+</head>
+<body >
+   
+<nav class="navbar navbar-default" style="background-color:rgba(238, 0, 0, 0.404);">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#" >High-Low</a>
+      </div>
+      <ul class="nav navbar-nav" >
+        <li><a href="#">Home</a></li>
+        <li><a href="#" onclick="App.admin();">Admin</a></li>
+        <!--<li><a href="#" onclick="App.tokens();" >Tokens</a></li>-->
+        <li><a href="#" onclick="App.broker();">Broker</a></li>
+        <li><a href="#" onclick="App.trader();" >Trader</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li id="b_stack"></li>
+        <li ><label for="account">Account<input type="text" class="form-control" id="account" readonly/></label></li>
+        <li><label for="balence">Balance in ETH<input type="text" class="form-control" id="balance" readonly/></span></label></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+
+          <div class="col-sm-4" id="result" >
+
+          </div>
+          <div class="col-sm-4" id="mine_stack" >
+
+          </div>
+          <div class="col-sm-4" id="bet_list">
+
+          </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script>
+           
+          var modal = document.getElementById('po');
+          window.onclick = function(event) {
+              if (event.target == modal) {
+                  modal.style.display = "none";
+              }
+          }
+          function radiobutton(browser) {
+              document.getElementById("result").value = browser;
+          }
+  
+</script>
+</html>
