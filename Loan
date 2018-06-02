@@ -1,0 +1,104 @@
+pragma solidity ^0.4.0;
+
+import "./Loan_token.sol";
+
+
+contract Loan{
+    
+    address admin;
+    Loan_token token;
+    //uint256 public amo;  
+    uint256 rate = 0.001 ether;
+    
+      function Loan(Loan_token _token)public payable 
+    {
+       admin = msg.sender;
+       token = _token;
+       
+    }
+    
+    struct borrower
+    {
+        uint256 amount;
+        uint256 token_balance;
+    }
+    
+    mapping(address=>borrower)public br;
+  
+    
+    function borrower_reg()public payable returns(uint256)
+    {
+       
+        uint256 amount_token = msg.value / rate;
+       // br[msg.sender].token_balance -= amount_token; 
+       
+        //Loan_token(token).transferFrom(msg.sender,token,amount_token);
+        Loan_token(token).transferFrom( token,msg.sender, amount_token );
+        br[msg.sender].token_balance +=amount_token;
+        return amount_token;
+        
+        
+    }
+   
+    
+    struct FI
+    {
+        string name;
+        uint256 amount;
+        uint256 months;
+        uint256 interest;
+    }   
+  
+    
+    //mapping(address=>get_loan)public req_loan;
+    mapping (address=>FI) public Reg;
+    
+    address[] Reg_FI;
+    
+    function Reg_Finance(string _name, uint256 _interest, uint256 _months)public payable returns(bool)
+    {
+        Reg[msg.sender].name = _name;
+        Reg[msg.sender].interest = _interest;
+        Reg[msg.sender].months = _months;
+        Reg[msg.sender].amount = msg.value;
+        Reg_FI.push(msg.sender);
+        return true;
+    }
+    function check() public view returns (uint256)
+    {
+        return br[msg.sender].amount;
+    }
+    
+    function Show_FI() public view returns(address[])
+    {
+        return Reg_FI;
+    }
+    
+    function account_token_balance() public constant returns(uint256)
+    {
+        return Loan_token(token).balanceOf(msg.sender);
+    }
+    
+    function borrower_Loan(uint256 amo_of_token,address _to)public payable returns(uint256)
+    {
+        require(amo_of_token>0);
+        uint256 tokens_Ether_amount = amo_of_token * rate ;
+        uint256 token_amount = tokens_Ether_amount*80;
+        uint256 total_amount = (token_amount/100);
+        Reg[_to].amount -=total_amount;
+        //Loan_token(token).transferFrom(_to,msg.sender,tokens_Ether_amount); 
+       // req_loan[msg.sender].tokens = amo_of_token;
+         Loan_token(token).transferFrom(msg.sender,_to,amo_of_token);
+         br[msg.sender].token_balance -=amo_of_token; 
+         msg.sender.transfer(total_amount);
+        return total_amount ;
+        
+    }
+    function contract_bal()public view returns(uint256)
+    {
+      return this.balance;  
+    }
+   
+    
+   
+}
